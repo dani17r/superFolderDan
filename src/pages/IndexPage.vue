@@ -1,11 +1,14 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
+    <example-component title="Example component" active :todos="todos" :meta="meta"></example-component>
+
+    <!-- TEST tailwind -->
+    <div class="tw-text-lg">
+      <p class="tw-underline">The quick brown fox ...</p>
+      <p class="tw-overline">The quick brown fox ...</p>
+      <p class="tw-line-through">The quick brown fox ...</p>
+      <p class="tw-no-underline">The quick brown fox ...</p>
+    </div>
   </q-page>
 </template>
 
