@@ -3,14 +3,18 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@middlewares/*": ["src/router/middlewares/*"],
       "@components/*": ["src/app/components/*"],
+      "@composables/*": ["src/composables/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@routes/*": ["src/router/routes/*"],
       "@layouts/*": ["src/app/layouts/*"],
+      "@services/*": ["src/services/*"],
       "@pages/*": ["src/app/pages/*"],
       "@assets/*": ["src/assets/*"],
       "@stores/*": ["src/stores/*"],
       "@router/*": ["src/router/*"],
       "@utils/*": ["src/utils/*"],
-      "@boot/*": ["src/boot/*"],
       "@app/*": ["src/app/*"],
       "@src/*": ["src/*"]
     }

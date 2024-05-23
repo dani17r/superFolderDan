@@ -1,5 +1,5 @@
 <template>
-  <q-item clickable tag="a" target="_blank" :href="link">
+  <q-item clickable tag="a" :to="link">
     <q-item-section v-if="icon" avatar>
       <q-icon :name="icon" />
     </q-item-section>
@@ -12,16 +12,11 @@
 </template>
 
 <script setup lang="ts">
+  import { EssentialLinkProps } from '@interfaces/global'
+
   defineOptions({
     name: 'EssentialLink'
   });
-
-  export interface EssentialLinkProps {
-    title: string;
-    caption?: string;
-    link?: string;
-    icon?: string;
-  };
 
   withDefaults(defineProps<EssentialLinkProps>(), {
     caption: '',
