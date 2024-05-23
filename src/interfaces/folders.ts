@@ -36,7 +36,10 @@ export interface InputsI {
     name: string;
     user_id: string;
     folder_id: number;
-  }>
+  }>;
 }
 
-export type ActionT = (data: FolderI[] | null, current?: FolderI | null) => void;
+export type ActionT = (
+  data: FolderI[] | null,
+  current?: FolderI | null,
+) => void;

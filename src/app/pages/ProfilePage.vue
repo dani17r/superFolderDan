@@ -1,7 +1,6 @@
 <script setup lang="ts">
-  import UpdateDataUser from '@components/profile/UpdateDataUser.vue';
-  import UpdatePassword from '@components/profile/UpdatePassword.vue';
-
+import UpdateDataUser from '@components/profile/UpdateDataUser.vue';
+import UpdatePassword from '@components/profile/UpdatePassword.vue';
 </script>
 
 <template>

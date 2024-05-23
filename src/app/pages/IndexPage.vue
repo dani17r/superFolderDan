@@ -5,9 +5,9 @@
 </template>
 
 <script setup lang="ts">
-  import FileExplorer from '@components/FileExplorer.vue';
+import FileExplorer from '@components/FileExplorer.vue';
 
-  defineOptions({
-    name: 'IndexPage'
-  });
+defineOptions({
+  name: 'IndexPage',
+});
 </script>

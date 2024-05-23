@@ -8,7 +8,7 @@ export type FileBody =
   | NodeJS.ReadableStream
   | ReadableStream<Uint8Array>
   | URLSearchParams
-  | string
+  | string;
 
 export interface FileI {
   id: number;
@@ -45,7 +45,7 @@ export interface InputsI {
     name: string;
     size: string;
     file: FileBody;
-  }
+  };
   UpdateI: Partial<{
     type: string;
     url: string;
@@ -54,7 +54,7 @@ export interface InputsI {
     fixed: boolean;
     user_id: string;
     folder_id: number;
-  }>
+  }>;
 }
 
 export type ActionT = (data: FileI[] | null, current?: FileI | null) => void;

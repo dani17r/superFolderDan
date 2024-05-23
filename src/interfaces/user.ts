@@ -18,9 +18,9 @@ export interface UserI {
   raw_app_meta_data?: Record<string, unknown>;
   raw_user_meta_data?: Record<string, unknown>;
   user_metadata: {
-    email: string,
-    fullname: string,
-    birthdate: string,
+    email: string;
+    fullname: string;
+    birthdate: string;
     image_profile: string;
   };
   is_super_admin?: boolean;

@@ -3,9 +3,7 @@
 // Configuration for your app
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
-
 import { configure } from 'quasar/wrappers';
-
 
 export default configure((/* ctx */) => {
   return {
@@ -15,14 +13,10 @@ export default configure((/* ctx */) => {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
-    boot: [
-    ],
+    boot: [],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
-    css: [
-      'app.scss',
-      'tailwind.css'
-    ],
+    css: ['app.scss', 'tailwind.css'],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
@@ -42,7 +36,7 @@ export default configure((/* ctx */) => {
     build: {
       target: {
         browser: ['es2022', 'firefox115', 'chrome115', 'safari14'],
-        node: 'node20'
+        node: 'node20',
       },
 
       vueRouterMode: 'history', // available values: 'hash', 'history'
@@ -65,23 +59,26 @@ export default configure((/* ctx */) => {
       // viteVuePluginOptions: {},
 
       vitePlugins: [
-        ['vite-plugin-checker', {
-          vueTsc: {
-            tsconfigPath: 'tsconfig.vue-tsc.json'
+        [
+          'vite-plugin-checker',
+          {
+            vueTsc: {
+              tsconfigPath: 'tsconfig.vue-tsc.json',
+            },
+            eslint: {
+              lintCommand: 'eslint "./**/*.{js,ts,mjs,cjs,vue}"',
+            },
           },
-          eslint: {
-            lintCommand: 'eslint "./**/*.{js,ts,mjs,cjs,vue}"'
-          }
-        }, { server: false }],
-        ['vite-tsconfig-paths', { projects: ['./tsconfig.json'] }]
+          { server: false },
+        ],
+        ['vite-tsconfig-paths', { projects: ['./tsconfig.json'] }],
       ],
-
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
       // https: true
-      open: false // opens browser window automatically
+      open: false, // opens browser window automatically
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
@@ -99,7 +96,7 @@ export default configure((/* ctx */) => {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['Notify', 'Dark', 'Loading', 'LoadingBar', 'Meta']
+      plugins: ['Notify', 'Dark', 'Loading', 'LoadingBar', 'Meta'],
     },
 
     // animations: 'all', // --- includes all animations
@@ -125,7 +122,7 @@ export default configure((/* ctx */) => {
       // (gets superseded if process.env.PORT is specified at runtime)
 
       middlewares: [
-        'render' // keep this as last one
+        'render', // keep this as last one
       ],
 
       // extendPackageJson (json) {},
@@ -136,7 +133,7 @@ export default configure((/* ctx */) => {
       // manualStoreHydration: true,
       // manualPostHydrationTrigger: true,
 
-      pwa: false
+      pwa: false,
 
       // pwaOfflineHtmlFilename: 'offline.html', // do NOT use index.html as name!
       // will mess up SSR
@@ -147,7 +144,7 @@ export default configure((/* ctx */) => {
 
     // https://v2.quasar.dev/quasar-cli-vite/developing-pwa/configuring-pwa
     pwa: {
-      workboxMode: 'GenerateSW' // 'GenerateSW' or 'InjectManifest'
+      workboxMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       // swFilename: 'sw.js',
       // manifestFilename: 'manifest.json'
       // extendManifestJson (json) {},
@@ -165,7 +162,7 @@ export default configure((/* ctx */) => {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor
     capacitor: {
-      hideSplashscreen: true
+      hideSplashscreen: true,
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/configuring-electron
@@ -185,13 +182,11 @@ export default configure((/* ctx */) => {
 
       packager: {
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
-
         // OS X / Mac App Store
         // appBundleId: '',
         // appCategoryType: '',
         // osxSign: '',
         // protocol: 'myapp://path',
-
         // Windows only
         // win32metadata: { ... }
       },
@@ -199,8 +194,8 @@ export default configure((/* ctx */) => {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'superolderdan'
-      }
+        appId: 'superolderdan',
+      },
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-browser-extensions/configuring-bex
@@ -208,9 +203,7 @@ export default configure((/* ctx */) => {
       // extendBexScriptsConf (esbuildConf) {},
       // extendBexManifestJson (json) {},
 
-      contentScripts: [
-        'my-content-script'
-      ]
-    }
-  }
+      contentScripts: ['my-content-script'],
+    },
+  };
 });

@@ -12,15 +12,15 @@
 </template>
 
 <script setup lang="ts">
-  import { EssentialLinkProps } from '@interfaces/global'
+import { EssentialLinkProps } from '@interfaces/global';
 
-  defineOptions({
-    name: 'EssentialLink'
-  });
+defineOptions({
+  name: 'EssentialLink',
+});
 
-  withDefaults(defineProps<EssentialLinkProps>(), {
-    caption: '',
-    link: '#',
-    icon: '',
-  });
+withDefaults(defineProps<EssentialLinkProps>(), {
+  caption: '',
+  link: '#',
+  icon: '',
+});
 </script>

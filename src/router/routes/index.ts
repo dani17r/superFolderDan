@@ -18,22 +18,22 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'dashboard',
         name: 'home',
-        component: () => import('@pages/IndexPage.vue')
+        component: () => import('@pages/IndexPage.vue'),
       },
       {
         path: 'profile/:id',
         name: 'profile',
-        component: () => import('@pages/ProfilePage.vue')
+        component: () => import('@pages/ProfilePage.vue'),
       },
       {
         path: 'dashboard/folder/:id',
         name: 'folders',
-        component: () => import('@pages/FolderPage.vue')
+        component: () => import('@pages/FolderPage.vue'),
       },
       {
         path: 'info',
         name: 'info',
-        component: () => import('@pages/InfoPage.vue')
+        component: () => import('@pages/InfoPage.vue'),
       },
     ],
   },
@@ -46,4 +46,3 @@ const routes: RouteRecordRaw[] = [
 ];
 
 export default routes;
-

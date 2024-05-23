@@ -22,6 +22,6 @@ export default [
         },
         component: () => import('@pages/RegisterPage.vue'),
       },
-    ]
-  }
-]
+    ],
+  },
+];
