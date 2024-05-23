@@ -1,9 +1,9 @@
-import { AuthError } from '@supabase/supabase-js';
-
+import { AuthError, PostgrestError } from '@supabase/supabase-js';
+import { StorageError } from '@supabase/storage-js'
 export interface NotifyI {
   SuccessI: {
     message: string,
     ok?: () => void
   }
-  ErrorI: AuthError;
+  ErrorI: AuthError | PostgrestError | StorageError;
 };

@@ -26,6 +26,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@pages/ProfilePage.vue')
       },
       {
+        path: 'dashboard/folder/:id',
+        name: 'folders',
+        component: () => import('@pages/FolderPage.vue')
+      },
+      {
         path: 'info',
         name: 'info',
         component: () => import('@pages/InfoPage.vue')

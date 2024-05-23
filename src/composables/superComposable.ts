@@ -1,8 +1,12 @@
 import { useRouter, useRoute } from 'vue-router';
+import { useFolderStore } from '@stores/folders';
+import { useFileStore } from '@stores/files';
 import { useAuthStore } from '@stores/auth';
 import { useQuasar } from 'quasar'
 
 const auth = useAuthStore();
+const folders = useFolderStore();
+const files = useFileStore();
 
 export default () => {
   const $q = useQuasar()
@@ -11,6 +15,7 @@ export default () => {
 
   const reset = () => {
     auth.reset();
+    folders.reset();
   }
 
   return {
@@ -18,6 +23,8 @@ export default () => {
     route,
     store: {
       reset,
+      folders,
+      files,
       auth,
     },
     $q

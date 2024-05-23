@@ -4,7 +4,7 @@ import { UserI } from '@interfaces/user';
 import notify from '@utils/notification';
 import { defineStore } from 'pinia';
 
-export const useAuthStore = defineStore('auth', {
+export const useAuthStore = defineStore('authStore', {
   state: () => <StateI>({
     lifecycles: {
       onMounted: false,

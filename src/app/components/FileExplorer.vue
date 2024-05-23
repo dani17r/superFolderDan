@@ -1,91 +1,47 @@
 <template>
-  <div class="border-accent tw-m-4 tw-w-[100%] tw-min-h-[80vh]">
-    <q-scroll-area class="tw-h-[55vw] tw-max-w-[100vw]">
+  <ContentFiles>
+    <div class="text-center">
+      <q-icon name="create_new_folder" :size="'80px'" color="primary" class="tw-opacity-50 tw-cursor-pointer"
+        @click="newFolder()" />
+      <p class="text-accent tw-cursor-pointer" @click="newFolder()">New folder</p>
+    </div>
 
-      <div class="tw-grid tw-grid-cols-4 tw-gap-4 tw-my-4">
-        <div class="text-center">
-          <q-icon name="create_new_folder" :size="'80px'" color="primary" class="tw-opacity-50 tw-cursor-pointer"
-            @click="newFolder()" />
-          <p class="text-accent tw-cursor-pointer" @click="newFolder()">New folder</p>
-        </div>
-
-        <template v-for="(folder) in folders" :key="folder.id">
-          <FolderContent v-bind="folder" @blur="isInputEmpty" />
-        </template>
-      </div>
-
-    </q-scroll-area>
-  </div>
+    <template v-for="folder in store.folders.data" :key="folder.id">
+      <FolderContent v-bind="folder" @blur-input="isInputEmpty" @delete-folder="deleteFolder"
+        @edite-folder="editeFolder" @open-folder="openFolder" />
+    </template>
+  </ContentFiles>
 </template>
 
 <script setup>
-  import { reactive } from 'vue';
-  import { remove } from 'lodash';
-  import FolderContent from './FolderContent.vue';
+  import { onMounted, ref } from 'vue';
+  import FolderContent from '@components/FolderContent.vue';
+  import superComposable from '@composables/superComposable';
+  import ContentFiles from '@layouts/ContentFiles.vue';
 
-  // const estructure = [{
-  //   type: 'view',
-  //   files: [
-  //     {
-  //       name: '',
-  //       url: '',
-  //       size: '',
-  //       fixed: '',
-  //       user_id: '',
-  //       folder_id: '',
-  //     }
-  //   ],
-  //   folders: folders
-  // }]
+  const { store, router } = superComposable()
 
-  const folders = reactive([
-    {
-      id: '1',
-      type: 'folder',
-      color: '#F0B82B',
-      size: 80,
-      name: 'Documentos',
-      user_id: '',
-      folder_id: '',
-      fixed: '',
-    },
-    {
-      id: '2',
-      type: 'folder',
-      color: '#F0B82B',
-      size: 80,
-      name: 'Fotos',
-      user_id: '',
-      folder_id: '',
-      fixed: '',
-    },
-    {
-      id: '3',
-      type: 'folder',
-      color: '#F0B82B',
-      size: 80,
-      name: 'Imagenes',
-      user_id: '',
-      folder_id: '',
-      fixed: '',
-    },
-  ]);
+  const idTemp = ref(0);
+  const modeUpdate = ref(false);
+
+  const folderDefault = {
+    edite: true,
+    type: 'folder',
+    color: '#F0B82B',
+    size: '80',
+    name: '',
+    user_id: '',
+    folder_id: '',
+  }
 
   const newFolder = () => {
-    const newId = crypto.randomUUID();
+    if (store.folders.data) idTemp.value = store.folders.data.length + 100;
+    else idTemp.value = 100;
 
-    folders.push({
-      id: newId,
-      type: 'folder',
-      color: '#F0B82B',
-      size: 80,
-      name: '',
-      user_id: '',
-      folder_id: '',
-    });
+    store.folders.addPlaceFolder({ ...folderDefault, id: idTemp.value });
 
     setTimeout(() => {
-      document.getElementById(`folder-${newId}`)?.focus();
+      document.getElementById(`folder-${idTemp.value}`)?.focus();
     }, 60)
   }
 
@@ -98,19 +54,46 @@
         el.target.value = el.target._value;
       }
 
-      /* En caso de que el valor actual y el valor original esten 
+      /* En caso de que el valor actual y el valor original esten
         vacios, esta recien creado y se puede borrar al hacer blur */
       else if (el.target._value == '' && el.target.value == '') {
-        remove(folders, (folder) => {
-          return folder.id == el.target.id.match(/folder-(.*)/)[1];
-        });
+        store.folders.removePlaceFolder(idTemp.value)
+      }
+      else {
+        if (modeUpdate.value) {
+          store.folders.editeFolder(idTemp.value);
+        }
+        else {
+          el.target._value = el.target.value;
+
+          store.folders.createFolder({
+            ...folderDefault,
+            edite: false,
+            name: el.target._value,
+            user_id: store.auth.current.id,
+          });
+        }
       }
     }, 60)
   }
-</script>
 
-<style>
-  .border-accent {
-    border: 1px solid var(--q-secondary);
+  const deleteFolder = (id) => {
+    store.folders.deleteFolder(id)
   }
-</style>
+
+  const editeFolder = (id) => {
+    modeUpdate.value = true;
+    idTemp.value = id;
+    store.folders.changeEditePlaceFolder(id);
+    document.getElementById(`folder-${idTemp.value}`)?.focus();
+  }
+
+  const openFolder = (id) => {
+    store.files.reset();
+    router.push({ name: 'folders', params: { id } })
+  }
+
+  onMounted(() => {
+    store.folders.getFoldersOfUser(store.auth.current.id)
+  })
+</script>
