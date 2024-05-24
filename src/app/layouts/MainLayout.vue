@@ -117,7 +117,7 @@ const logout = () => {
   $q.loading.show();
   store.auth.signOut(() => {
     setTimeout(() => {
-      router.push('login');
+      router.push({ name: 'login' });
       $q.loading.hide();
     }, 350);
   });

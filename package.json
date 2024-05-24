@@ -11,7 +11,9 @@
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev",
-    "build": "quasar build"
+    "build": "quasar build",
+    "start": "node ./server.cjs",
+    "server": "yarn && yarn build"
   },
   "dependencies": {
     "@quasar/cli": "^2.4.1",
@@ -19,9 +21,12 @@
     "@supabase/supabase-js": "^2.43.2",
     "@types/lodash": "^4.17.4",
     "axios": "^1.2.1",
+    "connect-history-api-fallback": "^2.0.0",
+    "express": "^4.19.2",
     "lodash": "^4.17.21",
     "pinia": "^2.0.11",
     "quasar": "^2.16.0",
+    "serve-static": "^1.15.0",
     "vue": "^3.4.18",
     "vue-router": "^4.0.12"
   },
