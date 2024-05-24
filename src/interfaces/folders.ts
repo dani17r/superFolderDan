@@ -30,6 +30,7 @@ export interface InputsI {
   };
 
   UpdateI: Partial<{
+    id: string;
     type: string;
     color: string;
     size: string;

@@ -23,6 +23,7 @@ export const useFolderStore = defineStore('folderStore', {
           .from('folders')
           .select('*')
           .eq('user_id', user_id)
+          .order('created_at', { ascending: true })
           .then(({ data, error }) => {
             if (error) return notify.error(error);
 
@@ -46,6 +47,7 @@ export const useFolderStore = defineStore('folderStore', {
     },
 
     updateFolder(
+      id: number,
       user_id: string,
       folder: InputsI['UpdateI'],
       action?: ActionT,
@@ -53,7 +55,7 @@ export const useFolderStore = defineStore('folderStore', {
       supabase
         .from('folders')
         .update(folder)
-        .eq('user_id', user_id)
+        .eq('id', id)
         .select()
         .then(({ data, error }) => {
           if (error) return notify.error(error);
@@ -85,10 +87,12 @@ export const useFolderStore = defineStore('folderStore', {
       if (this.data?.length) remove(this.data, (folder) => folder.id == id);
     },
     changeEditePlaceFolder(id: number) {
-      if (this.data) {
-        const file = this.data.find((file) => file.id == id);
-        if (file) file.edite = true;
-      }
+      this.data?.map((folder) => {
+        if (folder.id == id) {
+          folder.edite = true;
+          return folder;
+        }
+      });
     },
 
     // reset default values

@@ -24,7 +24,7 @@ const onSubmit = () => {
   form.email.refs.value?.validate();
   form.password.refs.value?.validate();
 
-  if (!form.password.refs.value.hasError || !form.email.refs.value.hasError) {
+  if (!form.password.refs.value.hasError && !form.email.refs.value.hasError) {
     store.auth.signIn(
       {
         email: form.email.val.value,

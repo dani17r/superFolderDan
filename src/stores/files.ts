@@ -22,6 +22,7 @@ export const useFileStore = defineStore('fileStore', {
         .select('*')
         .eq('user_id', user_id)
         .eq('folder_id', folder_id)
+        .order('name', { ascending: true })
         .then(({ data, error }) => {
           if (error) return notify.error(error);
 
@@ -39,31 +40,25 @@ export const useFileStore = defineStore('fileStore', {
           if (error) return notify.error(error);
 
           action && action(data as unknown as FileI[]);
-          this.getFilesOfUser(newFile.user_id, newFile.folder_id);
+          this.getFilesOfUser(newFile.user_id, Number(newFile.folder_id));
         });
     },
 
-    updateFile(
-      user_id: string,
-      folder_id: number,
-      file: InputsI['UpdateI'],
-      action?: ActionT,
-    ) {
+    updateFile(file: InputsI['UpdateI'], action?: ActionT) {
       supabase
         .from('files')
         .update(file)
-        .eq('user_id', user_id)
+        .eq('id', file.id)
         .select()
         .then(({ data, error }) => {
           if (error) return notify.error(error);
 
           action && action(data as unknown as FileI[]);
-          this.getFilesOfUser(user_id, folder_id);
+          this.getFilesOfUser(String(file.user_id), Number(file.folder_id));
         });
     },
 
     deleteFile(id: number, action?: ActionT) {
-      console.log('aaa');
       supabase
         .from('files')
         .delete()
@@ -80,22 +75,28 @@ export const useFileStore = defineStore('fileStore', {
         });
     },
 
-    uploadFile(payload: InputsI['UploadI']) {
+    uploadFile(payload: InputsI['UploadI'], action?: ActionT) {
       supabase.storage
         .from(nameStorage)
         .upload(`${payload.user_id}/files/${payload.name}`, payload.file)
         .then(({ data, error }) => {
           if (error) return notify.error(error);
 
-          this.createFile({
-            url: `${nameStorage}/${data.path}`,
-            folder_id: payload.folder_id,
-            user_id: payload.user_id,
-            name: payload.name,
-            size: payload.size,
-            fixed: false,
-            type: 'file',
-          });
+          this.createFile(
+            {
+              folder_id: Number(payload.folder_id),
+              amount_pages: Number(payload.amount_pages),
+              url: `${nameStorage}/${data.path}`,
+              user_id: payload.user_id,
+              id_doc: payload.id_doc,
+              owner: payload.owner,
+              size: payload.size,
+              name: payload.name,
+              type: payload.type,
+              fixed: false,
+            },
+            () => action && action(null),
+          );
         });
     },
 

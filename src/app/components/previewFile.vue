@@ -4,9 +4,10 @@ import superComposable from '@composables/superComposable';
 const { store } = superComposable();
 
 const emit = defineEmits([
-  'fixedFiles',
-  'editeFiles',
-  'deleteFiles',
+  'fixedFile',
+  'openFile',
+  'editeFile',
+  'deleteFile',
   'blurInput',
 ]);
 
@@ -15,6 +16,12 @@ const props = defineProps({
     type: String,
   },
   url: {
+    type: String,
+  },
+  fixed: {
+    type: Boolean,
+  },
+  type: {
     type: String,
   },
   name: {
@@ -30,6 +37,7 @@ const props = defineProps({
 <template>
   <div
     class="text-center tw-flex tw-flex-col tw-justify-center tw-items-center"
+    :class="props.fixed ? 'tw-mt-[-35px]' : ''"
   >
     <q-btn
       fab-mini
@@ -41,28 +49,40 @@ const props = defineProps({
     >
       <q-menu>
         <q-list dense style="min-width: 100px">
-          <q-item clickable v-close-popup @click="emit('editeFiles')">
+          <q-item clickable v-close-popup @click="emit('openFile', props.id)">
+            <q-icon
+              color="secondary"
+              name="file_copy"
+              class="tw-mt-[4px] tw-mr-[4px]"
+              size="20px"
+            />
+            <q-item-section>Open File</q-item-section>
+          </q-item>
+          <q-item clickable v-close-popup @click="emit('editeFile', props.id)">
             <q-icon
               color="secondary"
               name="edit"
               class="tw-mt-[4px] tw-mr-[4px]"
               size="20px"
             />
-            <q-item-section>Edite name</q-item-section>
+            <q-item-section>Edite File</q-item-section>
           </q-item>
-          <q-item clickable v-close-popup @click="emit('fixedFiles')">
+          <q-item clickable v-close-popup @click="emit('fixedFile', props.id)">
             <q-icon
               color="secondary"
               name="keyboard_double_arrow_right"
               class="tw-mt-[4px] tw-mr-[4px]"
               size="20px"
             />
-            <q-item-section>fixed file</q-item-section>
+            <q-item-section>{{
+              props.fixed ? 'Unfix File' : 'Fixed File'
+            }}</q-item-section>
           </q-item>
           <q-item
+            v-if="!props.fixed"
             clickable
             v-close-popup
-            @click="emit('deleteFiles', props.id)"
+            @click="emit('deleteFile', props.id)"
           >
             <q-icon
               color="secondary"
@@ -75,6 +95,7 @@ const props = defineProps({
         </q-list>
       </q-menu>
     </q-btn>
+
     <div class="tw-flex tw-justify-center tw-items-center tw-flex-col">
       <div class="thumbnail-container">
         <iframe
@@ -84,11 +105,18 @@ const props = defineProps({
         ></iframe>
       </div>
 
-      <p class="text-center">{{ props.name }}</p>
+      <p class="text-center">{{ props.name }}.{{ props.type }}</p>
       <p class="text-center">
         {{ parseFloat(Number(props.size) / 1024).toFixed(1) }} kiB
       </p>
     </div>
+    <q-icon
+      v-if="props.fixed"
+      name="push_pin"
+      size="20px"
+      color="accent"
+      class="tw-z-[100] tw-mt-[-60px] tw-mr-[-100px]"
+    />
   </div>
 </template>
 

@@ -73,7 +73,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import EssentialLink from '@components/EssentialLink.vue';
-import ConfirmAction from '@components/dialogs/ConfirmAction.vue';
+import ConfirmAction from '@components/dialogs/ConfirmDialog.vue';
 import superComposable from '@composables/superComposable';
 import { EssentialLinkProps } from '@interfaces/global';
 

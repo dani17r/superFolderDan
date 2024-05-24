@@ -60,17 +60,21 @@ const newFolder = () => {
 const isInputEmpty = (el) => {
   setTimeout(() => {
     /* En el caso que el valor original tenga algo y el texto actual no,
-        al hacer blur se restaura el valor al original */
+          al hacer blur se restaura el valor al original */
     if (el.target.value == '' && el.target._value != '') {
       el.target.value = el.target._value;
     } else if (el.target._value == '' && el.target.value == '') {
-
-    /* En caso de que el valor actual y el valor original esten
-        vacios, esta recien creado y se puede borrar al hacer blur */
+      /* En caso de que el valor actual y el valor original esten
+            vacios, esta recien creado y se puede borrar al hacer blur */
       store.folders.removePlaceFolder(idTemp.value);
     } else {
       if (modeUpdate.value) {
-        store.folders.editeFolder(idTemp.value);
+        const folder = store.folders.data.find(
+          (folder) => folder.id == idTemp.value,
+        );
+        store.folders.updateFolder(folder.id, folder.user_id, {
+          name: el.target.value,
+        });
       } else {
         el.target._value = el.target.value;
 
@@ -82,7 +86,7 @@ const isInputEmpty = (el) => {
         });
       }
     }
-  }, 60);
+  }, 80);
 };
 
 const deleteFolder = (id) => {
@@ -90,10 +94,10 @@ const deleteFolder = (id) => {
 };
 
 const editeFolder = (id) => {
+  store.folders.changeEditePlaceFolder(id);
   modeUpdate.value = true;
   idTemp.value = id;
-  store.folders.changeEditePlaceFolder(id);
-  document.getElementById(`folder-${idTemp.value}`)?.focus();
+  setTimeout(() => document.getElementById(`folder-${id}`).focus(), 100);
 };
 
 const openFolder = (id) => {

@@ -28,6 +28,8 @@ const props = defineProps({
     type: Number,
   },
 });
+
+const clickOutside = () => document.getElementById('content-folder').focus();
 </script>
 
 <template>
@@ -53,7 +55,11 @@ const props = defineProps({
             />
             <q-item-section>Open folder</q-item-section>
           </q-item>
-          <q-item clickable v-close-popup @click="emit('editeFolder')">
+          <q-item
+            clickable
+            v-close-popup
+            @click="emit('editeFolder', props.id)"
+          >
             <q-icon
               color="secondary"
               name="edit"
@@ -115,7 +121,7 @@ const props = defineProps({
       "
       class="tw-cursor-pointer text-center"
       @blur="(event) => emit('blurInput', event)"
-      @keyup.enter="emit('blurInput', $event)"
+      @keyup.enter="clickOutside()"
       @dblclick="emit('openFolder', props.id)"
     />
   </div>

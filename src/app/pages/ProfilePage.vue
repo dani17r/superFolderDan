@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import UpdateDataUser from '@components/profile/UpdateDataUser.vue';
-import UpdatePassword from '@components/profile/UpdatePassword.vue';
+import UpdateProfileData from '@components/forms/UpdateProfileData.vue';
+import UpdateProfilePassword from '@components/forms/UpdateProfilePassword.vue';
 </script>
 
 <template>
@@ -10,8 +10,8 @@ import UpdatePassword from '@components/profile/UpdatePassword.vue';
     </q-card-section>
 
     <div class="q-gutter-md q-layout-padding flex justify-center items-start">
-      <UpdateDataUser class="q-col" />
-      <UpdatePassword class="q-col" />
+      <UpdateProfileData class="q-col" />
+      <UpdateProfilePassword class="q-col" />
     </div>
   </q-page>
 </template>

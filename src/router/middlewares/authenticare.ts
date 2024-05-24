@@ -12,13 +12,11 @@ export const isLogin = (
 
   authStore.getUser((user) => {
     if (isVerifyAuth) {
-      if (user) {
-        next();
-      } else next({ name: 'login' });
+      if (user) next();
+      else next({ name: 'login' });
     } else {
-      if (user) {
-        next({ name: 'home' });
-      } else next();
+      if (user) next({ name: 'home' });
+      else next();
     }
   }, true);
 };

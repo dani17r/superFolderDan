@@ -13,12 +13,16 @@ export type FileBody =
 export interface FileI {
   id: number;
   created_at: string;
-  name: string;
+  id_doc: string;
+  type: string;
   url: string;
   size: string;
+  name: string;
+  owner: string;
   fixed: boolean;
   user_id: string;
-  folder_id: number;
+  folder_id: number | null;
+  amount_pages: number;
 }
 
 export interface StateI {
@@ -33,28 +37,29 @@ export interface InputsI {
   NewI: {
     type: string;
     url: string;
-    size: string;
-    name: string;
     fixed: boolean;
+    folder_id: number | null;
+    amount_pages: number;
     user_id: string;
-    folder_id: number;
+    owner: string;
+    name: string;
+    size: string;
+    id_doc: string;
   };
+
   UploadI: {
-    folder_id: number;
-    user_id: string;
-    name: string;
-    size: string;
     file: FileBody;
-  };
-  UpdateI: Partial<{
-    type: string;
-    url: string;
-    size: string;
-    name: string;
-    fixed: boolean;
+    folder_id: number | null;
+    amount_pages: number;
     user_id: string;
-    folder_id: number;
-  }>;
+    id_doc: string;
+    owner: string;
+    name: string;
+    size: string;
+    type: string;
+  };
+
+  UpdateI: Partial<FileI>;
 }
 
 export type ActionT = (data: FileI[] | null, current?: FileI | null) => void;
